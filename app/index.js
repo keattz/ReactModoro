@@ -1,49 +1,19 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- * @flow
- */
+import React from 'react'
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import * as reducers from './redux'
+import { AppContainer } from '~/containers'
 
-import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  View
-} from 'react-native';
+const store = createStore(
+  combineReducers(reducers),
+  applyMiddleware(thunk)
+)
 
-import { LoginButton } from 'react-native-fbsdk'
-
-export default class ReactModoro extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome!
-        </Text>
-        <LoginButton
-          onLoginFinished={() => ({})}
-          onLogoutFinished={() => ({})}
-          defaultAudience='everyone' />
-      </View>
-    );
-  }
+export default function ReactModoro (props) {
+  return (
+    <Provider store={store}>
+      <AppContainer />
+    </Provider>
+  )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-  instructions: {
-    textAlign: 'center',
-    color: '#333333',
-    marginBottom: 5,
-  },
-});

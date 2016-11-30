@@ -1,0 +1,5 @@
+export FooterTabs from './FooterTabs/FooterTabs'
+export Home from './Home/Home'
+export Leaderboard from './Leaderboard/Leaderboard'
+export PreSplash from './PreSplash/PreSplash'
+export Splash from './Splash/Splash'
