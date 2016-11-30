@@ -1,4 +1,4 @@
-import { authWithToken, getAccessToken } from '~/api/auth'
+import { authWithToken, getAccessToken, updateUser } from '~/api/auth'
 
 const AUTHENTICATING = 'AUTHENTICATING'
 const NOT_AUTHED = 'NOT_AUTHED'
@@ -37,8 +37,14 @@ export function onAuthChange (user) {
     if (!user) {
       dispatch(notAuthed())
     } else {
-      const { providerData, uid } = user
-      dispatch(isAuthed(uid))
+      const { displayName, photoURL, uid } = user
+      console.log(user)
+      updateUser({
+        uid,
+        photoURL,
+        displayName
+      }).then(() => dispatch(isAuthed(uid))
+      )
     }
   }
 }

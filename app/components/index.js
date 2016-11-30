@@ -1,5 +1,7 @@
 export FooterTabs from './FooterTabs/FooterTabs'
+export Gear from './Icons/Gear'
 export Home from './Home/Home'
 export Leaderboard from './Leaderboard/Leaderboard'
 export PreSplash from './PreSplash/PreSplash'
+export ReactModoroNavbar from './ReactModoroNavbar/ReactModoroNavbar'
 export Splash from './Splash/Splash'
