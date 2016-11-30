@@ -1,9 +1,10 @@
 import React, { PropTypes } from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { Gear, ReactModoroNavbar } from '~/components'
+import { View, StyleSheet, Text, Platform } from 'react-native'
+import { Gear, Hamburger, ReactModoroNavbar } from '~/components'
 
 Home.propTypes = {
-
+  openDrawer: PropTypes.func,
+  handleToSettings: PropTypes.func.isRequired
 }
 
 export default function Home (props) {
@@ -11,7 +12,8 @@ export default function Home (props) {
     <View>
       <ReactModoroNavbar
         title='Home'
-        rightButton={<Gear onPress={() => console.log('Gear!')} />} />
+        leftButton={Platform.OS === 'android' ? <Hamburger onPress={props.openDrawer} /> : null}
+        rightButton={<Gear onPress={props.handleToSettings} />} />
       <Text>
         Home
       </Text>

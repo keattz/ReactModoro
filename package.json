@@ -12,6 +12,7 @@
     "react-native": "0.38.0",
     "react-native-fbsdk": "^0.4.0",
     "react-native-navbar": "^1.5.4",
+    "react-native-slider": "^0.9.1",
     "react-native-vector-icons": "^3.0.0",
     "react-redux": "^4.4.6",
     "redux": "^3.6.0",
