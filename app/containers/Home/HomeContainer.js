@@ -1,6 +1,7 @@
 import React, { PropTypes, Component } from 'react'
 import { connect } from 'react-redux'
 import { Home } from '~/components'
+import { incrementAndHandleScore, decrementAndHandleScore } from '~/redux/modules/scores'
 
 function secondsToHMS (secs) {
   const hours = Math.floor(secs / 3600)
@@ -13,6 +14,7 @@ class HomeContainer extends Component {
   static propTypes = {
     timerDuration: PropTypes.number.isRequired,
     restDuration: PropTypes.number.isRequired,
+    score: PropTypes.number.isRequired,
     openDrawer: PropTypes.func,
     navigator: PropTypes.object.isRequired
   }
@@ -39,6 +41,8 @@ class HomeContainer extends Component {
     if (this.state.countdownRunning === true) {
       this.setState({countdownRunning: false})
       return window.clearInterval(this.interval)
+
+      this.props.dispatch(decrementAndHandleScore(5))
     }
 
     this.setState({
@@ -56,10 +60,16 @@ class HomeContainer extends Component {
             : this.props.restDuration,
           activeCountdown: activeCountdown === 'timer'? 'rest' : 'timer'
         })
+
+        this.props.dispatch(incrementAndHandleScore(5))
       } else {
         this.setState({
           [activeCountdown]: nextSecond
         })
+      }
+
+      if (nextSecond % 60 === 0) {
+        this.props.dispatch(incrementAndHandleScore(1))
       }
     }, 1000)
   }
@@ -69,6 +79,8 @@ class HomeContainer extends Component {
       timer: this.props.timerDuration,
       countdownRunning: false
     })
+
+    this.props.dispatch(decrementAndHandleScore(5))
   }
   handleSkipRest = () => {
     this.setState({
@@ -91,6 +103,7 @@ class HomeContainer extends Component {
       <Home
         countdownRunning={this.state.countdownRunning}
         timer={secondsToHMS(this.state.timer)}
+        score={this.props.score}
         rest={secondsToHMS(this.state.rest)}
         activeCountdown={this.state.activeCountdown}
         onToggleCountdown={this.handleToggleCountdown}
@@ -103,10 +116,11 @@ class HomeContainer extends Component {
   }
 }
 
-function mapStateToProps ({settings}) {
+function mapStateToProps ({settings, scores, authentication}) {
   return {
     timerDuration: settings.timerDuration * 60,
-    restDuration: settings.restDuration * 60
+    restDuration: settings.restDuration * 60,
+    score: scores.userScores[authentication.authedId]
   }
 }
 
