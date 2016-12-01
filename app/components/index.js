@@ -1,5 +1,6 @@
 export FooterTabs from './FooterTabs/FooterTabs'
 export Close from './Icons/Close'
+export FlashNotification from './FlashNotification/FlashNotification'
 export Gear from './Icons/Gear'
 export Hamburger from './Icons/Hamburger'
 export Home from './Home/Home'
